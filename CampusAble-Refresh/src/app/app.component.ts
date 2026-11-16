@@ -122,14 +122,17 @@ export class AppComponent implements AfterViewInit, OnDestroy {
       minZoom: 5,
       maxZoom: 19,
     }).setView(this.campus().center, this.campus().zoom);
+
     const tiles = L.tileLayer(
-      "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+      "https://api.maptiler.com/maps/streets-v4/{z}/{x}/{y}.png?key=MWmEAl1RwbigPH47HYhO",
       {
         maxZoom: 19,
         attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors',
+          '&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a> ' +
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
       },
     ).addTo(this.map);
+
     tiles.on("tileerror", () => this.zone.run(() => this.tileError.set(true)));
     tiles.on("tileload", () => this.zone.run(() => this.tileError.set(false)));
     this.markers = L.layerGroup().addTo(this.map);
